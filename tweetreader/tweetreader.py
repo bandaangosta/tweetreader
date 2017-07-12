@@ -20,6 +20,7 @@ app.config.update(dict(
                        ACCESS_TOKEN_SECRET = 'Get from https://dev.twitter.com/'  ,
                        SECRET_KEY = 'V0tISH0cy1pGyynHyfKI',
                        TITLE = 'ALMA Engineering Test robot tweet reader',
+                       REFRESH_RATE_MINS = 5,
                        DEV_MODE = False
                       )
                  )

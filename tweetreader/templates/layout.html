@@ -48,7 +48,7 @@
 <script>
     $(document).ready( function () {
         var elapsedSecs = 0;
-        var refreshRateSecs = 2 * 60; // do not make this too small or you will hit Twitter API rate limit
+        var refreshRateSecs = {{ config.REFRESH_RATE_MINS }} * 60; // do not make this too small or you will hit Twitter API rate limit
         var refreshNextUpdateSecs = 20;
         var nextUpdateMins;
 
