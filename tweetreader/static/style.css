@@ -24,35 +24,11 @@
 	text-align: center;
 }
 
-.table-metadata
-{
-    font-family: 'Arial Narrow';
-    font-size: 95%;
-    margin-top: 10px;
-    width: auto;
-    text-align: left;
-}
-
-.table-metadata td
-{
-    padding-right: 20px;
-    border: 0px;
-}
-
-.table-metadata td.header
-{
-    padding-bottom: 0px;
-}
-
-.table-metadata td.data
-{
-    padding-top: 0px;
-}
 
 .table-stats
 {
-    font-family: 'Arial Narrow';
-    font-size: 95%;
+    font-family: 'Arial';
+    /*font-size: 95%;*/
     margin-top: 20px;
     width: auto;
     /*text-align: right;*/
@@ -69,29 +45,4 @@
     text-align: right;
     background-color: #fff;
     border-bottom: 1px solid #DDD;
-}
-
-.subtable-stats
-{
-    font-size: 80%;
-    font-family: 'Courier New';
-    margin: 0px;
-    width: auto;
-
-}
-
-.subtable-stats th, .subtable-stats td
-{
-    background-color: #FFFAD9;
-}
-
-.subtable-stats tr:hover td
-{
-    background-color: #FBEABA;
-}
-
-.config-xml
-{
-    font-size: 80%;
-    font-family: 'Courier New';
 }

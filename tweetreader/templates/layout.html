@@ -14,6 +14,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='url.min.js') }}"></script>
     <title>{{ config.TITLE }}</title>
   </head>
   <body>
@@ -36,19 +37,55 @@
       {% endfor %}
 
       <div class="container" style="font-style: italic; margin-top: 20px; margin-bottom: 20px">
-        Last update: {{ 'not available' if not lastUpdate else lastUpdate}}
+        Next update in: <span id="counter"></span> min
       </div>
 
-
-      <div>
+      <div id="tweets">
       {% block body %}{% endblock %}
       </div>
     </div>
 
 <script>
     $(document).ready( function () {
+        var elapsedSecs = 0;
+        var refreshRateSecs = 2 * 60; // do not make this too small or you will hit Twitter API rate limit
+        var refreshNextUpdateSecs = 20;
+        var nextUpdateMins;
 
+        // Initiate "next update" counter
+        nextUpdateMins = (refreshRateSecs / 60);
+        if (nextUpdateMins < 1.0)
+          nextUpdateMins = "< 1";
+        else
+          nextUpdateMins = Math.round(nextUpdateMins);
 
+        $("#counter").html(nextUpdateMins);
+
+        // Every X milliseconds refresh latest tweets
+        refreshIntervalId = setInterval(function(){
+          // Update latest tweets
+          // var u = new Url("{{ url_for('LatestTweets') }}");
+          $("#tweets").html("Reloading tweets...");
+          $("#tweets").load("{{ url_for('LatestTweets') }}");
+
+          // Reset counters
+          elapsedSecs = 0;
+          $("#counter").html(Math.round(refreshRateSecs / 60));
+
+        }, refreshRateSecs * 1000);
+
+        // Every refreshNextUpdateSecs seconds refresh update counter
+        refreshCounterId = setInterval(function(){
+          elapsedSecs = elapsedSecs + refreshNextUpdateSecs;
+          nextUpdateMins = (refreshRateSecs - elapsedSecs) / 60
+
+          if (nextUpdateMins < 1.0)
+            nextUpdateMins = '< 1';
+          else
+            nextUpdateMins = Math.round(nextUpdateMins);
+
+          $("#counter").html(nextUpdateMins);
+        }, refreshNextUpdateSecs * 1000);
       });
 </script>
 
