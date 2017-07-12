@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div style="font-style: italic; margin-top: 20px">
+  Last update: {{ 'not available' if not lastUpdate else lastUpdate}}
+  </div>
+
+  {% for tweet in tweets %}
+    <div>{{ tweet.text }}</div>
+  {% else %}
+    No tweets
+  {% endfor %}
+
+{% endblock %}
