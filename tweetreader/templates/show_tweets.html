@@ -1,13 +1,36 @@
-{% extends "layout.html" %}
-{% block body %}
-  <div style="font-style: italic; margin-top: 20px">
-  Last update: {{ 'not available' if not lastUpdate else lastUpdate}}
-  </div>
+{% if include_layout %}
+    {% extends "layout.html" %}
+{% endif %}
 
-  {% for tweet in tweets %}
-    <div>{{ tweet.text }}</div>
-  {% else %}
-    No tweets
-  {% endfor %}
+{% block body %}
+    <div class="container">
+        <table border="0" class="table-stats">
+        {% for tweet in tweets %}
+            <tr style="border-top: 1px solid black">
+                <td rowspan="2" style="padding-top: 10px; vertical-align: top;">
+                    <img src="{{ tweet.author.profile_image_url }}">
+                </td>
+                <td style="padding-top: 10px; text-align: left">
+                    <strong>{{ tweet.author.name }}</strong>&nbsp;&nbsp;<span class="text-muted">@{{ tweet.author.screen_name }}</span>
+                </td>
+                <td style="padding-top: 10px; text-align: right">
+                    {{ tweet.created_at }} UTC
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="padding-bottom: 10px; text-align: left">
+                    {{ tweet.text }}
+                </td>
+            </tr>
+
+        {% else %}
+            <tr>
+                <td>
+                    No tweets
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

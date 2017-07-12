@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_mps.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
@@ -20,9 +20,25 @@
     <div class="container-fluid">
       {# include 'navigation_bar.html' #}
 
+      <div class="row">
+        <div class="col title">
+          <img src="{{ url_for('static', filename='alma-logo.png') }}" height="40">
+          ALMA Engineering Test twitter robot
+        </div>
+        <div class="col title" style="text-align: right; padding-right: 20px">
+          <img src="{{ url_for('static', filename='Twitter_Logo_Blue.png') }}" width="40">
+          @almaengtest
+        </div>
+      </div>
+
       {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
       {% endfor %}
+
+      <div class="container" style="font-style: italic; margin-top: 20px; margin-bottom: 20px">
+        Last update: {{ 'not available' if not lastUpdate else lastUpdate}}
+      </div>
+
 
       <div>
       {% block body %}{% endblock %}
@@ -31,6 +47,8 @@
 
 <script>
     $(document).ready( function () {
+
+
       });
 </script>
 
